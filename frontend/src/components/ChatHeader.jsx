@@ -1,4 +1,4 @@
-import { X, Bot, ArrowLeft } from "lucide-react";
+import { X, Bot, ArrowLeft, Trash2 } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 
@@ -41,6 +41,13 @@ const ChatHeader = () => {
                         </p>
                     </div>
                 </div>
+
+                {/* Clear Chat Button (Only for AI) */}
+                {selectedUser.isAi && (
+                    <button onClick={() => useChatStore.getState().clearChat()} className="text-gray-300 hover:text-red-500 transition-colors mr-2">
+                        <Trash2 size={20} />
+                    </button>
+                )}
 
                 {/* Close button */}
                 <button onClick={() => setSelectedUser(null)} className="text-gray-300">
