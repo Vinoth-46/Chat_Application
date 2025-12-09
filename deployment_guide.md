@@ -16,7 +16,7 @@ Use the following settings for your service:
 - **Name**: `your-app-name`
 - **Region**: Closest to you (e.g., Singapore, Oregon).
 - **Branch**: `main`
-- **One Root Directory**: `.` (Leave empty or dot)
+- **Root Directory**: **LEAVE THIS BLANK**. (Do NOT type `main` here. It should be empty or `.`).
 - **Runtime**: `Node`
 - **Build Command**: `npm run build`
     - *This runs our custom script to install dependencies for both frontend/backend and build the React app.*
@@ -42,6 +42,7 @@ Click **Create Web Service**. Render will start the build process:
 4.  Start backend server.
 
 ## Troubleshooting
+- **Error: "Service Root Directory is missing"**: You likely typed `main` in the **Root Directory** field settings. Go to **Settings** -> **Root Directory**, clear it completely, and save.
 - **Build Failed**: Check the logs. If it says `npm not found` inside a folder, ensure the root `package.json` scripts are using `--prefix` correctly (we set this up).
 - **White Screen**: If the frontend doesn't load, check the browser console. If 404 on API calls, check `CLIENT_URL`.
 - **Socket Error**: If real-time chat fails, ensure `CLIENT_URL` effectively matches your browser URL (no trailing slash usually best, but check consistency).
