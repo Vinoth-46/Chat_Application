@@ -1,4 +1,4 @@
-import { X, Bot, ArrowLeft, Trash2 } from "lucide-react";
+import { X, Bot, ArrowLeft, Trash2, MoreVertical } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 
@@ -42,11 +42,21 @@ const ChatHeader = () => {
                     </div>
                 </div>
 
-                {/* Clear Chat Button (Only for AI) */}
+                {/* Options Menu (Only for AI for now) */}
                 {selectedUser.isAi && (
-                    <button onClick={clearChat} className="text-base-content/70 hover:text-red-500 transition-colors mr-2 p-2 rounded-full hover:bg-base-200" title="Clear Chat">
-                        <Trash2 size={20} />
-                    </button>
+                    <div className="dropdown dropdown-end mr-2">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle btn-sm text-base-content/70">
+                            <MoreVertical size={20} />
+                        </div>
+                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-40 p-2 shadow-lg border border-base-300">
+                            <li>
+                                <button onClick={clearChat} className="text-error hover:bg-error/10">
+                                    <Trash2 size={16} />
+                                    Clear Chat
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 )}
 
                 {/* Close button */}
