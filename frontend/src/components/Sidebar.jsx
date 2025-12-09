@@ -105,37 +105,29 @@ const Sidebar = () => {
                             )}
                         </div>
 
-                        {/* User info - visible on all screens now */}
-                        <div className="block text-left min-w-0 flex-1">
-                            <div className="font-medium truncate flex items-center gap-2 justify-between">
-                                <span className="flex items-center gap-2 truncate">
+                        {/* User info */}
+                        <div className="flex-1 text-left min-w-0">
+                            <div className="flex justify-between items-baseline mb-1">
+                                <span className="font-semibold truncate flex items-center gap-1.5 text-base-content/90">
                                     {user.fullName}
-                                    {user.isAi && <Bot className="size-4 text-blue-500" />}
+                                    {user.isAi && <Bot className="size-3.5 text-blue-500" />}
                                     {pinnedUsers.includes(user._id) && !user.isAi && <Pin className="size-3 text-zinc-400 fill-zinc-400" />}
                                 </span>
+                                {/* Time placeholder or pinned icon logic could go here, but for now just spacing */}
+                            </div>
 
-                                {!user.isAi && (
-                                    <div
-                                        onClick={(e) => togglePin(e, user._id)}
-                                        className={`opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-base-200 rounded ${pinnedUsers.includes(user._id) ? "opacity-100" : ""}`}
-                                    >
-                                        <Pin className={`size-4 ${pinnedUsers.includes(user._id) ? "fill-zinc-400 text-zinc-400" : "text-zinc-400"}`} />
-                                    </div>
+                            <div className="flex justify-between items-center">
+                                <span className={`text-sm truncate ${onlineUsers.includes(user._id) || user.isAi ? "text-green-500 font-medium" : "text-base-content/60"}`}>
+                                    {onlineUsers.includes(user._id) || user.isAi ? "Online" : "Offline"}
+                                </span>
+
+                                {user.unreadCount > 0 && (
+                                    <span className="flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 text-xs font-bold text-white bg-[#25D366] rounded-full shadow-sm">
+                                        {user.unreadCount}
+                                    </span>
                                 )}
                             </div>
-                            <div className={`text-sm ${onlineUsers.includes(user._id) || user.isAi ? "text-green-500" : "text-zinc-400"}`}>
-                                {onlineUsers.includes(user._id) || user.isAi ? "Online" : "Offline"}
-                            </div>
                         </div>
-
-                        {/* Unread Message Count */}
-                        {user.unreadCount > 0 && (
-                            <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                                <span className="flex items-center justify-center w-5 h-5 text-xs font-bold text-black bg-green-500 rounded-full">
-                                    {user.unreadCount}
-                                </span>
-                            </div>
-                        )}
                     </button>
                 ))}
 

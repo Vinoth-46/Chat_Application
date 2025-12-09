@@ -55,7 +55,7 @@ const ChatContainer = () => {
     }
 
     return (
-        <div className="flex-1 flex flex-col overflow-auto bg-base-100/50 backdrop-blur-lg">
+        <div className="flex-1 flex flex-col overflow-auto bg-[#0b141a] bg-repeat" style={{ backgroundImage: "url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')", backgroundBlendMode: "overlay", backgroundSize: "400px" }}>
             <ChatHeader />
 
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -66,7 +66,7 @@ const ChatContainer = () => {
                         ref={messageEndRef}
                     >
                         <div className=" chat-image avatar">
-                            <div className="size-10 rounded-full border">
+                            <div className="size-10 rounded-full border border-base-content/10">
                                 {
                                     (message.senderId === authUser._id ? authUser.profilePic : selectedUser.profilePic) ? (
                                         <img
@@ -91,25 +91,28 @@ const ChatContainer = () => {
                             </div>
                         </div>
                         <div className="chat-header mb-1">
-                            <time className="text-xs opacity-50 ml-1">
+                            <time className="text-xs opacity-50 ml-1 text-gray-300">
                                 {formatMessageTime(message.createdAt)}
                             </time>
                         </div>
-                        <div className="chat-bubble flex flex-col backdrop-blur-md bg-opacity-80 shadow-sm">
+                        <div className={`chat-bubble flex flex-col shadow-md max-w-[70%] rounded-xl ${message.senderId === authUser._id
+                                ? "bg-[#005c4b] text-white rounded-tr-none"
+                                : "bg-[#202c33] text-white rounded-tl-none"
+                            }`}>
                             {message.image && (
                                 <img
                                     src={message.image}
                                     alt="Attachment"
-                                    className="sm:max-w-[200px] rounded-md mb-2"
+                                    className="sm:max-w-[200px] rounded-md mb-2 object-cover"
                                 />
                             )}
-                            {message.text && <p>{message.text}</p>}
+                            {message.text && <p className="leading-relaxed">{message.text}</p>}
 
                             {message.senderId === authUser._id && (
                                 <div className="self-end mt-1">
-                                    {message.status === "sent" && <Check className="w-3 h-3 text-gray-400" />}
-                                    {message.status === "delivered" && <CheckCheck className="w-3 h-3 text-gray-400" />}
-                                    {message.status === "seen" && <CheckCheck className="w-3 h-3 text-blue-500" />}
+                                    {message.status === "sent" && <Check className="w-3.5 h-3.5 text-gray-400" />}
+                                    {message.status === "delivered" && <CheckCheck className="w-3.5 h-3.5 text-gray-400" />}
+                                    {message.status === "seen" && <CheckCheck className="w-3.5 h-3.5 text-[#53bdeb]" />}
                                 </div>
                             )}
                         </div>
