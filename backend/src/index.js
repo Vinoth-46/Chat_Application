@@ -28,6 +28,19 @@ app.use(
     })
 );
 
+// Maintenance Mode Middleware
+app.use((req, res, next) => {
+    if (process.env.MAINTENANCE_MODE === "true") {
+        // If it's an API request, return 503 JSON
+        if (req.path.startsWith("/api")) {
+            return res.status(503).json({ message: "Service under maintenance. Please try again later." });
+        }
+        // Otherwise serve the maintenance page
+        return res.sendFile(path.join(__dirname, "html", "maintenance.html"));
+    }
+    next();
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/images", imageRoutes);
