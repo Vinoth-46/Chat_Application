@@ -1,5 +1,0 @@
-{
-  "name": "NovaChat",
-  "description": "A modern, real-time chat application featuring secure authentication simulation, instant messaging, and an integrated AI Assistant powered by Google Gemini. Built with React, TypeScript, and Tailwind CSS.",
-  "requestFramePermissions": []
-}

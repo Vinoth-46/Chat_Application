@@ -2,13 +2,25 @@ import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
 import { getGfsBucket } from "../lib/db.js";
+import { generateAIResponse } from "../lib/gemini.js";
 
 export const getUsersForSidebar = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
         const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
 
-        res.status(200).json(filteredUsers);
+        const usersWithUnreadCounts = await Promise.all(
+            filteredUsers.map(async (user) => {
+                const unreadCount = await Message.countDocuments({
+                    senderId: user._id,
+                    receiverId: loggedInUserId,
+                    status: { $ne: "seen" }
+                });
+                return { ...user.toObject(), unreadCount };
+            })
+        );
+
+        res.status(200).json(usersWithUnreadCounts);
     } catch (error) {
         console.error("Error in getUsersForSidebar: ", error.message);
         res.status(500).json({ error: "Internal server error" });
@@ -74,12 +86,50 @@ export const sendMessage = async (req, res) => {
 
         await newMessage.save();
 
+
         const receiverSocketId = getReceiverSocketId(receiverId);
         if (receiverSocketId) {
             io.to(receiverSocketId).emit("newMessage", newMessage);
         }
 
         res.status(201).json(newMessage);
+
+        // AI Bot Logic
+        try {
+            const receiverUser = await User.findById(receiverId);
+            if (receiverUser && receiverUser.isAi) {
+                // Get chat history for better context
+                const history = await Message.find({
+                    $or: [
+                        { senderId, receiverId },
+                        { senderId: receiverId, receiverId: senderId }
+                    ]
+                }).sort({ createdAt: 1 }).limit(10); // Limit to last 10 messages for context
+
+                // Format history for Gemini
+                const historyForAi = history.map(msg => ({
+                    role: msg.senderId.toString() === senderId.toString() ? 'user' : 'model',
+                    parts: [{ text: msg.text || (msg.image ? "[Image]" : "") }]
+                }));
+
+                const aiResponseText = await generateAIResponse(historyForAi, text);
+
+                const aiMessage = new Message({
+                    senderId: receiverId,
+                    receiverId: senderId,
+                    text: aiResponseText
+                });
+
+                await aiMessage.save();
+
+                const senderSocketId = getReceiverSocketId(senderId);
+                if (senderSocketId) {
+                    io.to(senderSocketId).emit("newMessage", aiMessage);
+                }
+            }
+        } catch (aiError) {
+            console.error("Error generating AI response:", aiError);
+        }
     } catch (error) {
         console.log("Error in sendMessage controller: ", error.message);
         res.status(500).json({ error: "Internal server error" });

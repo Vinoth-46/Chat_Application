@@ -46,17 +46,28 @@ export const useChatStore = create((set, get) => ({
 
     subscribeToMessages: () => {
         const { selectedUser } = get();
-        if (!selectedUser) return;
-
         const socket = useAuthStore.getState().socket;
 
-        socket.on("newMessage", (newMessage) => {
-            const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
-            if (!isMessageSentFromSelectedUser) return;
+        if (!socket) return;
 
-            set({
-                messages: [...get().messages, newMessage],
-            });
+
+        socket.on("newMessage", (newMessage) => {
+            const isMessageSentFromSelectedUser = selectedUser?._id === newMessage.senderId;
+
+            if (isMessageSentFromSelectedUser) {
+                set({
+                    messages: [...get().messages, newMessage],
+                });
+            } else {
+                // Increment unread count for the sender
+                set({
+                    users: get().users.map(user =>
+                        user._id === newMessage.senderId
+                            ? { ...user, unreadCount: (user.unreadCount || 0) + 1 }
+                            : user
+                    )
+                })
+            }
         });
 
         socket.on("messageSeen", (updatedMessage) => {
@@ -102,5 +113,14 @@ export const useChatStore = create((set, get) => ({
         }
     },
 
-    setSelectedUser: (selectedUser) => set({ selectedUser }),
+    setSelectedUser: (selectedUser) => {
+        set({ selectedUser });
+        if (selectedUser) {
+            set({
+                users: get().users.map(u =>
+                    u._id === selectedUser._id ? { ...u, unreadCount: 0 } : u
+                )
+            })
+        }
+    },
 }));

@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { X, Bot } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 
@@ -27,9 +27,12 @@ const ChatHeader = () => {
 
                     {/* User Info */}
                     <div>
-                        <h3 className="font-medium">{selectedUser.fullName}</h3>
+                        <h3 className="font-medium flex items-center gap-2">
+                            {selectedUser.fullName}
+                            {selectedUser.isAi && <Bot className="size-4 text-blue-500" />}
+                        </h3>
                         <p className="text-xs text-base-content/70">
-                            {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
+                            {onlineUsers.includes(selectedUser._id) || selectedUser.isAi ? "Online" : "Offline"}
                         </p>
                     </div>
                 </div>
