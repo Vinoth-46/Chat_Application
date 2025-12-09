@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // We use the Gemini 1.5 Flash model for fast, conversational responses
-const MODEL_NAME = 'gemini-1.5-flash';
+const MODEL_NAME = 'gemini-2.5-flash';
 
 let aiClient = null;
 
