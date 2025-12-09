@@ -1,0 +1,12 @@
+{
+    "name": "chat-app-root",
+    "version": "1.0.0",
+    "description": "Root package to manage deployment",
+    "scripts": {
+        "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend",
+        "start": "npm start --prefix backend"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
