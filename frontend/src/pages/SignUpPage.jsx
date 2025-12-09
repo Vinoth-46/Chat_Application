@@ -33,11 +33,7 @@ const SignUpPage = () => {
     return (
         <div className="min-h-screen mesh-bg flex flex-col items-center p-4 sm:p-6 pt-24 pb-10 relative">
 
-            {/* Ambient Background Elements */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-20 left-20 w-72 h-72 bg-primary/20 rounded-full blur-[100px] animate-pulse" />
-                <div className="absolute bottom-20 right-20 w-80 h-80 bg-secondary/20 rounded-full blur-[100px] animate-pulse delay-1000" />
-            </div>
+
 
             <div className="w-full max-w-md m-auto space-y-8 glass-premium p-8 sm:p-10 rounded-3xl animate-slide-up relative z-10">
                 {/* Header */}
@@ -46,23 +42,23 @@ const SignUpPage = () => {
                         <div className="size-16 rounded-2xl bg-gradient-to-tr from-primary to-secondary flex items-center justify-center animate-float shadow-xl mb-2">
                             <MessageSquare className="size-8 text-white" />
                         </div>
-                        <h1 className="text-4xl font-bold tracking-tight text-white mb-2">Create Account</h1>
-                        <p className="text-base-content/70 text-lg text-white opacity-80 font-light ">Get started with your free account</p>
+                        <h1 className="text-4xl font-bold tracking-tight text-base-content mb-2">Create Account</h1>
+                        <p className="text-base-content/70 text-lg opacity-80 font-light ">Get started with your free account</p>
                     </div>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="form-control group">
                         <label className="label pl-1">
-                            <span className="label-text font-medium text-white/80 group-focus-within:text-primary transition-colors">Full Name</span>
+                            <span className="label-text font-medium text-base-content/80 group-focus-within:text-primary transition-colors">Full Name</span>
                         </label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <User className="size-5 text-white/40 group-focus-within:text-primary transition-colors" />
+                                <User className="size-5 text-base-content/40 group-focus-within:text-primary transition-colors" />
                             </div>
                             <input
                                 type="text"
-                                className="input w-full pl-11 glass-input text-white placeholder-white/30 rounded-xl h-12"
+                                className="input w-full pl-11 glass-input text-base-content placeholder-base-content/30 rounded-xl h-12"
                                 placeholder="Your Full Name"
                                 value={formData.fullName}
                                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
@@ -72,15 +68,15 @@ const SignUpPage = () => {
 
                     <div className="form-control group">
                         <label className="label pl-1">
-                            <span className="label-text font-medium text-white/80 group-focus-within:text-primary transition-colors">Email</span>
+                            <span className="label-text font-medium text-base-content/80 group-focus-within:text-primary transition-colors">Email</span>
                         </label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <Mail className="size-5 text-white/40 group-focus-within:text-primary transition-colors" />
+                                <Mail className="size-5 text-base-content/40 group-focus-within:text-primary transition-colors" />
                             </div>
                             <input
                                 type="email"
-                                className="input w-full pl-11 glass-input text-white placeholder-white/30 rounded-xl h-12"
+                                className="input w-full pl-11 glass-input text-base-content placeholder-base-content/30 rounded-xl h-12"
                                 placeholder="Your Email"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value.toLowerCase() })}
@@ -90,15 +86,15 @@ const SignUpPage = () => {
 
                     <div className="form-control group">
                         <label className="label pl-1">
-                            <span className="label-text font-medium text-white/80 group-focus-within:text-primary transition-colors">Password</span>
+                            <span className="label-text font-medium text-base-content/80 group-focus-within:text-primary transition-colors">Password</span>
                         </label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <Lock className="size-5 text-white/40 group-focus-within:text-primary transition-colors" />
+                                <Lock className="size-5 text-base-content/40 group-focus-within:text-primary transition-colors" />
                             </div>
                             <input
                                 type={showPassword ? "text" : "password"}
-                                className="input w-full pl-11 pr-10 glass-input text-white placeholder-white/30 rounded-xl h-12"
+                                className="input w-full pl-11 pr-10 glass-input text-base-content placeholder-base-content/30 rounded-xl h-12"
                                 placeholder="Password"
                                 value={formData.password}
                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -109,9 +105,9 @@ const SignUpPage = () => {
                                 onClick={() => setShowPassword(!showPassword)}
                             >
                                 {showPassword ? (
-                                    <EyeOff className="size-5 text-white" />
+                                    <EyeOff className="size-5 text-base-content/70" />
                                 ) : (
-                                    <Eye className="size-5 text-white" />
+                                    <Eye className="size-5 text-base-content/70" />
                                 )}
                             </button>
                         </div>
@@ -134,9 +130,9 @@ const SignUpPage = () => {
                 </form>
 
                 <div className="text-center pt-2">
-                    <p className="text-white/60">
+                    <p className="text-base-content/60">
                         Already have an account?{" "}
-                        <Link to="/login" className="text-white font-medium hover:text-primary hover:underline transition-all">
+                        <Link to="/login" className="text-base-content font-medium hover:text-primary hover:underline transition-all">
                             Sign in
                         </Link>
                     </p>

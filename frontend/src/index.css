@@ -10,13 +10,13 @@
 
 @layer utilities {
   .glass-premium {
-    @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl;
+    @apply bg-base-content/10 backdrop-blur-xl border border-base-content/20 shadow-2xl;
   }
-  
+
   .glass-input {
-    @apply bg-white/5 border border-white/10 focus:border-primary/50 focus:bg-white/10 transition-all duration-300;
+    @apply bg-base-content/5 border border-base-content/10 focus:border-primary/50 focus:bg-base-content/10 transition-all duration-300;
   }
-  
+
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
   }
@@ -24,31 +24,67 @@
 
 /* Custom Animations */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes float-reverse {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(20px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes gradient-x {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .animate-float {
@@ -74,17 +110,18 @@
 
 /* Mesh Gradient Background */
 .mesh-bg {
-  background-color: hsla(240, 50%, 9%, 1);
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+  background-color: hsla(0, 0%, 100%, 1);
+  background-image: none;
 }
 
-[data-theme='light'] .mesh-bg {
-  background-color: hsla(0, 0%, 100%, 1);
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(253,16%,90%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225,39%,90%,1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(339,49%,90%,1) 0, transparent 50%);
+[data-theme='dark'] .mesh-bg,
+[data-theme='coffee'] .mesh-bg,
+[data-theme='black'] .mesh-bg,
+[data-theme='business'] .mesh-bg,
+[data-theme='night'] .mesh-bg {
+  background-color: hsla(240, 50%, 9%, 1);
+  background-image:
+    radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
 }
