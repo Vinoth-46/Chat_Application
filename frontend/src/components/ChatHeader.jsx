@@ -3,15 +3,15 @@ import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 
 const ChatHeader = () => {
-    const { selectedUser, setSelectedUser } = useChatStore();
+    const { selectedUser, setSelectedUser, clearChat } = useChatStore();
     const { onlineUsers } = useAuthStore();
 
     return (
-        <div className="p-2.5 border-b border-gray-700 bg-[#0b141a]"> {/* Hardcoded dark bg and border */}
+        <div className="p-2.5 border-b border-base-300 bg-base-100">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     {/* Back Button */}
-                    <button onClick={() => setSelectedUser(null)} className="lg:hidden text-gray-300"> {/* Light icon */}
+                    <button onClick={() => setSelectedUser(null)} className="lg:hidden text-base-content/70 hover:text-base-content transition-colors">
                         <ArrowLeft />
                     </button>
 
@@ -32,11 +32,11 @@ const ChatHeader = () => {
 
                     {/* User Info */}
                     <div>
-                        <h3 className="font-medium flex items-center gap-2 text-white"> {/* Force white text */}
+                        <h3 className="font-medium flex items-center gap-2 text-base-content">
                             {selectedUser.fullName}
                             {selectedUser.isAi && <Bot className="size-4 text-blue-500" />}
                         </h3>
-                        <p className={`text-xs ${onlineUsers.includes(selectedUser._id) || selectedUser.isAi ? "text-[#25D366]" : "text-gray-400"}`}>
+                        <p className={`text-xs ${onlineUsers.includes(selectedUser._id) || selectedUser.isAi ? "text-[#25D366]" : "text-base-content/70"}`}>
                             {onlineUsers.includes(selectedUser._id) || selectedUser.isAi ? "Online" : "Offline"}
                         </p>
                     </div>
@@ -44,13 +44,13 @@ const ChatHeader = () => {
 
                 {/* Clear Chat Button (Only for AI) */}
                 {selectedUser.isAi && (
-                    <button onClick={() => useChatStore.getState().clearChat()} className="text-gray-300 hover:text-red-500 transition-colors mr-2">
+                    <button onClick={clearChat} className="text-base-content/70 hover:text-red-500 transition-colors mr-2 p-2 rounded-full hover:bg-base-200" title="Clear Chat">
                         <Trash2 size={20} />
                     </button>
                 )}
 
                 {/* Close button */}
-                <button onClick={() => setSelectedUser(null)} className="text-gray-300">
+                <button onClick={() => setSelectedUser(null)} className="text-base-content/70 hover:text-base-content transition-colors">
                     <X />
                 </button>
             </div>

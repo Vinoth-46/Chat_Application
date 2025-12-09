@@ -42,6 +42,6 @@ export const generateAIResponse = async (history, newMessage) => {
         return result?.text || result?.response?.text() || "I'm having trouble thinking right now.";
     } catch (error) {
         console.error("Gemini API Error:", error);
-        return "Sorry, I am currently offline. Please check your connection or API key.";
+        return "Sorry, I am currently offline. Please check your connection.";
     }
 };
