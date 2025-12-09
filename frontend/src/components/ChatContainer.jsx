@@ -55,7 +55,7 @@ const ChatContainer = () => {
     }
 
     return (
-        <div className="flex-1 flex flex-col overflow-auto bg-[#0b141a] bg-repeat" style={{ backgroundImage: "url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')", backgroundBlendMode: "overlay", backgroundSize: "400px" }}>
+        <div className="flex-1 flex flex-col overflow-hidden bg-[#0b141a] bg-repeat" style={{ backgroundImage: "url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')", backgroundBlendMode: "overlay", backgroundSize: "400px" }}>
             <ChatHeader />
 
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -96,8 +96,8 @@ const ChatContainer = () => {
                             </time>
                         </div>
                         <div className={`chat-bubble flex flex-col shadow-md max-w-[70%] rounded-xl ${message.senderId === authUser._id
-                                ? "bg-[#005c4b] text-white rounded-tr-none"
-                                : "bg-[#202c33] text-white rounded-tl-none"
+                            ? "bg-[#005c4b] text-white rounded-tr-none"
+                            : "bg-[#202c33] text-white rounded-tl-none"
                             }`}>
                             {message.image && (
                                 <img
