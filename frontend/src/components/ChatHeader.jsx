@@ -7,11 +7,11 @@ const ChatHeader = () => {
     const { onlineUsers } = useAuthStore();
 
     return (
-        <div className="p-2.5 border-b border-base-300">
+        <div className="p-2.5 border-b border-gray-700 bg-[#0b141a]"> {/* Hardcoded dark bg and border */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     {/* Back Button */}
-                    <button onClick={() => setSelectedUser(null)} className="lg:hidden">
+                    <button onClick={() => setSelectedUser(null)} className="lg:hidden text-gray-300"> {/* Light icon */}
                         <ArrowLeft />
                     </button>
 
@@ -32,18 +32,18 @@ const ChatHeader = () => {
 
                     {/* User Info */}
                     <div>
-                        <h3 className="font-medium flex items-center gap-2">
+                        <h3 className="font-medium flex items-center gap-2 text-white"> {/* Force white text */}
                             {selectedUser.fullName}
                             {selectedUser.isAi && <Bot className="size-4 text-blue-500" />}
                         </h3>
-                        <p className="text-xs text-base-content/70">
+                        <p className={`text-xs ${onlineUsers.includes(selectedUser._id) || selectedUser.isAi ? "text-[#25D366]" : "text-gray-400"}`}>
                             {onlineUsers.includes(selectedUser._id) || selectedUser.isAi ? "Online" : "Offline"}
                         </p>
                     </div>
                 </div>
 
                 {/* Close button */}
-                <button onClick={() => setSelectedUser(null)}>
+                <button onClick={() => setSelectedUser(null)} className="text-gray-300">
                     <X />
                 </button>
             </div>

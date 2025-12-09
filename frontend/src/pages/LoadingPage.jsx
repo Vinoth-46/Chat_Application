@@ -15,7 +15,7 @@ const LoadingPage = () => {
 
                     <div className="flex flex-col items-center gap-2">
                         <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-pulse">
-                            Chatty
+                            Rants ...
                         </h1>
                         <div className="flex gap-1">
                             <span className="size-2 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></span>
