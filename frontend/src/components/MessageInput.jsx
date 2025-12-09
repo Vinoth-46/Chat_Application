@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { useAuthStore } from "../store/useAuthStore";
-import { Image, Send, X } from "lucide-react";
+import { Image, Send, X, Smile, Paperclip, Camera, Mic } from "lucide-react";
 import toast from "react-hot-toast";
 
 const MessageInput = () => {
@@ -51,9 +51,9 @@ const MessageInput = () => {
     };
 
     return (
-        <div className="p-4 w-full">
+        <div className="p-2 w-full bg-transparent">
             {imagePreview && (
-                <div className="mb-3 flex items-center gap-2">
+                <div className="mb-3 flex items-center gap-2 px-2">
                     <div className="relative">
                         <img
                             src={imagePreview}
@@ -73,11 +73,16 @@ const MessageInput = () => {
             )}
 
             <form onSubmit={handleSendMessage} className="flex items-center gap-2">
-                <div className="flex-1 flex gap-2">
+                {/* Main Input Pill */}
+                <div className="flex-1 flex gap-2 items-center bg-[#202c33] rounded-full px-4 py-2">
+                    <button type="button" className="text-zinc-400 hover:text-zinc-300 transition-colors">
+                        <Smile size={24} />
+                    </button>
+
                     <input
                         type="text"
-                        className="w-full input input-bordered rounded-lg input-sm sm:input-md"
-                        placeholder="Type a message..."
+                        className="w-full bg-transparent border-none outline-none text-white placeholder-zinc-400 font-normal"
+                        placeholder="Message"
                         value={text}
                         onChange={(e) => {
                             setText(e.target.value);
@@ -90,29 +95,44 @@ const MessageInput = () => {
                             }, 2000);
                         }}
                     />
-                    <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        ref={fileInputRef}
-                        onChange={handleImageChange}
-                    />
 
-                    <button
-                        type="button"
-                        className={`hidden sm:flex btn btn-circle
-                     ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
-                        onClick={() => fileInputRef.current?.click()}
-                    >
-                        <Image size={20} />
-                    </button>
+                    <div className="flex items-center gap-4">
+                        <button
+                            type="button"
+                            className="text-zinc-400 hover:text-zinc-300 transition-colors rotate-45"
+                            onClick={() => fileInputRef.current?.click()}
+                        >
+                            <Paperclip size={22} />
+                        </button>
+                        {/* Hidden File Input */}
+                        <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            ref={fileInputRef}
+                            onChange={handleImageChange}
+                        />
+
+                        {/* Shows Camera icon if no text/image (just visual placeholder as user requested style) */}
+                        {!text && !imagePreview && (
+                            <button type="button" className="text-zinc-400 hover:text-zinc-300 transition-colors">
+                                <Camera size={22} />
+                            </button>
+                        )}
+                    </div>
                 </div>
+
+                {/* Send Button Circle */}
                 <button
                     type="submit"
-                    className="btn btn-sm btn-circle"
+                    className="flex items-center justify-center size-12 rounded-full bg-[#00a884] hover:bg-[#008f6f] transition-all flex-shrink-0"
                     disabled={!text.trim() && !imagePreview}
                 >
-                    <Send size={22} />
+                    {text.trim() || imagePreview ? (
+                        <Send size={22} className="text-white ml-0.5" />
+                    ) : (
+                        <Mic size={24} className="text-white" />
+                    )}
                 </button>
             </form>
         </div>
