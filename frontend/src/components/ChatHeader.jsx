@@ -42,27 +42,29 @@ const ChatHeader = () => {
                     </div>
                 </div>
 
-                {/* Options Menu (Only for AI for now) */}
-                {selectedUser.isAi && (
-                    <div className="dropdown dropdown-end mr-2">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle btn-sm text-base-content/70">
-                            <MoreVertical size={20} />
+                <div className="flex items-center gap-2">
+                    {/* Options Menu (Only for AI for now) */}
+                    {selectedUser.isAi && (
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle btn-sm text-base-content/70">
+                                <MoreVertical size={20} />
+                            </div>
+                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-40 p-2 shadow-lg border border-base-300">
+                                <li>
+                                    <button onClick={clearChat} className="text-error hover:bg-error/10">
+                                        <Trash2 size={16} />
+                                        Clear Chat
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
-                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-40 p-2 shadow-lg border border-base-300">
-                            <li>
-                                <button onClick={clearChat} className="text-error hover:bg-error/10">
-                                    <Trash2 size={16} />
-                                    Clear Chat
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                )}
+                    )}
 
-                {/* Close button */}
-                <button onClick={() => setSelectedUser(null)} className="text-base-content/70 hover:text-base-content transition-colors">
-                    <X />
-                </button>
+                    {/* Close button */}
+                    <button onClick={() => setSelectedUser(null)} className="text-base-content/70 hover:text-base-content transition-colors">
+                        <X />
+                    </button>
+                </div>
             </div>
         </div>
     );

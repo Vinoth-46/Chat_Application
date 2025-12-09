@@ -139,7 +139,7 @@ const ProfilePage = () => {
                                 <span className="badge badge-success badge-outline gap-1">
                                     <Shield className="w-3 h-3" /> Active
                                 </span>
-                                <span className="badge badge-neutral badge-outline gap-1">
+                                <span className="badge badge-outline gap-1">
                                     <Calendar className="w-3 h-3" /> Joined {authUser.createdAt ? authUser.createdAt.split("T")[0] : "N/A"}
                                 </span>
                             </div>
